@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+
+    <link rel="stylesheet" href="colorpicker.css">
+    <style>
+        body{ padding:0; margin: 0;}
+        .colorPicker{ margin: 0;}
+    </style>
+</head>
+
+<body>
+    <button type="button" href="on">ON</button>
+    <button type="button" href="off">OFF</button>
+    <button type="button" href="red">RED</button>
+    <button type="button" href="green">GREEN</button>
+    <button type="button" href="blue">BLUE</button>
+    <button type="button" href="cold">50% COLD</button>
+    <button type="button" href="hot">50% HOT</button>
+    <br/>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="onecolor.js"></script>
+    <script src="colorpicker.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        $(function() {
+            $('button').each(function() {
+                const $this = $(this);
+                $(this).on('click', function() {
+                    $.get('http://localhost:3002/' + $this.attr('href'));
+                })
+            });
+            var joe = colorjoe.rgb('mycolorpicker');
+            joe.on("change", function(color) {
+                var rgb = color.rgb();
+                Object.keys(rgb).forEach(function(key){
+                    rgb[key] = parseInt(rgb[key]*100);
+                })
+                $.get(`http://localhost:3002/rgb/${rgb._red}/${rgb._green}/${rgb._blue}`);
+            });
+            
+            $('#cold').on('change',function() {
+                var value = $('#cold').val();
+                $.get(`http://localhost:3002/cold/${value}/`);
+            });
+            $('#hot').on('change',function() {
+                var value = $('#hot').val();
+                $.get(`http://localhost:3002/hot/${value}/`);
+            });
+        })
+    </script>
+    <div id="mycolorpicker"></div>
+    <input id="cold" type="range" min="0" max="255">
+    <input id="hot" type="range" min="0" max="255">
+</body>
+
+</html>

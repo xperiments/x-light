@@ -1,0 +1,12 @@
+# Common files
+.DS_Store
+.idea
+.env
+.env.*
+.nvmrc
+bin
+.bundle
+node_modules
+.credentials
+.vscode
+
