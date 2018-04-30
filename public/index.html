@@ -32,7 +32,7 @@
             $('button').each(function() {
                 const $this = $(this);
                 $(this).on('click', function() {
-                    $.get('http://localhost:3002/' + $this.attr('href'));
+                    $.get('/' + $this.attr('href'));
                 })
             });
             var joe = colorjoe.rgb('mycolorpicker');
@@ -41,16 +41,16 @@
                 Object.keys(rgb).forEach(function(key){
                     rgb[key] = parseInt(rgb[key]*100);
                 })
-                $.get(`http://localhost:3002/rgb/${rgb._red}/${rgb._green}/${rgb._blue}`);
+                $.get(`/rgb/${rgb._red}/${rgb._green}/${rgb._blue}`);
             });
             
             $('#cold').on('change',function() {
                 var value = $('#cold').val();
-                $.get(`http://localhost:3002/cold/${value}/`);
+                $.get(`/cold/${value}/`);
             });
             $('#hot').on('change',function() {
                 var value = $('#hot').val();
-                $.get(`http://localhost:3002/hot/${value}/`);
+                $.get(`/hot/${value}/`);
             });
         })
     </script>
